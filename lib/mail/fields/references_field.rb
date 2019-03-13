@@ -37,7 +37,7 @@ module Mail
 
     def initialize(value = nil, charset = nil)
       value = value.join("\r\n\s") if value.is_a?(Array)
-      super value, charset
+      super value&.chomp, charset
     end
   end
 end
