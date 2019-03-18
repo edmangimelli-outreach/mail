@@ -70,4 +70,9 @@ describe Mail::ReferencesField do
     m = Mail::ReferencesField.new( '2a26f8f146e27159@domain.com@domain.com 4769770500E92399@n064.sc1.he.tucows.com' )
     expect(m.message_ids).to eq [ '2a26f8f146e27159@domain.com@domain.com', '4769770500E92399@n064.sc1.he.tucows.com' ]
   end
+
+  it "should be ablle to parse newlines and carriage return separators" do
+    m = Mail::ReferencesField.new("\r\n <foo@mail.gmail.com> \r\n <bar@prod.outlook.com>,<baz@mail.gmail.com>")
+    expect(m.message_ids).to eq ["foo@mail.gmail.com", "bar@prod.outlook.com", "baz@mail.gmail.com"]
+  end
 end
