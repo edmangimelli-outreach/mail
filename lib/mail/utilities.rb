@@ -320,5 +320,18 @@ module Mail
         value.respond_to?(:empty?) ? value.empty? : !value
       end
     end
+
+    # simulate old Ruby range behavior (Ruby <v2.7 doesn't allow "beginless" ranges)
+    def self.raise_on_beginless_range(start, stop)
+      return unless start.nil?
+
+      if stop.nil?
+        # technically, Ruby <v2.7 will not raise on this scenario until it is used
+        # --that is `x = nil..nil` won't raise but `x = nil..nil; 'hello'[x]`
+        raise TypeError, 'no implicit conversion from nil to integer'
+      else
+        raise ArgumentError, 'bad value for range'
+      end
+    end
   end
 end

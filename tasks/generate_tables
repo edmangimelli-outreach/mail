@@ -5,6 +5,7 @@
 #   ruby tasks/generate_tables
 # The Unicode version downloaded is determined by the UNICODE_VERSION lib/mail/multibye/unicode.rb
 require './lib/mail/multibyte/unicode'
+require './lib/mail/utilities'
 
 require 'open-uri'
 require 'tmpdir'
@@ -69,6 +70,8 @@ module Mail
             @ucd.boundary[type] ||= []
             if $1.include? '..'
               parts = $1.split '..'
+
+              Mail::Utilities.raise_on_beginless_range(parts[0].hex, parts[1].hex)
               @ucd.boundary[type] << (parts[0].hex..parts[1].hex)
             else
               @ucd.boundary[type] << $1.hex

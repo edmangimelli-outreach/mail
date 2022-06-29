@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "mail/utilities"
+
 module Mail
   module Multibyte
     module Unicode
@@ -128,6 +130,7 @@ module Mail
               (database.boundary[:extend] === current)
             )
           else
+            Mail::Utilities.raise_on_beginless_range(marker, pos-1)
             unpacked << codepoints[marker..pos-1]
             marker = pos
           end
@@ -203,6 +206,7 @@ module Mail
                 j = starter_pos + 1
                 eoa -= 1
               end
+              Mail::Utilities.raise_on_beginless_range(starter_pos, j)
               codepoints[starter_pos..j] = (lindex * HANGUL_VCOUNT + vindex) * HANGUL_TCOUNT + tindex + HANGUL_SBASE
             end
             starter_pos += 1

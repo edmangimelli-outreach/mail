@@ -527,4 +527,16 @@ describe "Utilities Module" do
       end
     end
   end
+
+  describe "raise_on_beginless_range" do
+    it "throws an ArgumentError for nil..x" do
+      expect { Mail::Utilities.raise_on_beginless_range(nil, 1) }
+        .to raise_error ArgumentError
+    end
+
+    it "throws a TypeError for nil..nil" do
+      expect { Mail::Utilities.raise_on_beginless_range(nil, nil) }
+        .to raise_error TypeError
+    end
+  end
 end
