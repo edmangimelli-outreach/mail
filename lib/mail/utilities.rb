@@ -327,7 +327,7 @@ module Mail
 
       if stop.nil?
         # technically, Ruby <v2.7 will not raise on this scenario until it is used
-        # --that is `x = nil..nil` won't raise but `x = nil..nil; 'hello'[x]`
+        # --that is `x = nil..nil` won't raise but `x = nil..nil; 'hello'[x]` will
         raise TypeError, 'no implicit conversion from nil to integer'
       else
         raise ArgumentError, 'bad value for range'
