@@ -538,5 +538,15 @@ describe "Utilities Module" do
       expect { Mail::Utilities.raise_on_beginless_range(nil, nil) }
         .to raise_error TypeError
     end
+
+    it "does not throw an error for x..nil" do
+      expect { Mail::Utilities.raise_on_beginless_range(1, nil) }
+        .not_to raise_error
+    end
+
+    it "does not throw an error for x..y" do
+      expect { Mail::Utilities.raise_on_beginless_range(1, 2) }
+        .not_to raise_error
+    end
   end
 end
